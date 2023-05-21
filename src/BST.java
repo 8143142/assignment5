@@ -22,8 +22,10 @@ public class BST<K extends Comparable<K>, V> {
 
     private Node put(Node node, K key, V val) {
         if (node == null) {
+            size++;
             return new Node(key, val);
         }
+
         int cmp = key.compareTo(node.key);
         if (cmp < 0) {
             node.left = put(node.left, key, val);
@@ -32,6 +34,7 @@ public class BST<K extends Comparable<K>, V> {
         } else {
             node.val = val;
         }
+
         return node;
     }
 
@@ -43,6 +46,7 @@ public class BST<K extends Comparable<K>, V> {
         if (node == null) {
             return null;
         }
+
         int cmp = key.compareTo(node.key);
         if (cmp < 0) {
             return get(node.left, key);
@@ -69,8 +73,10 @@ public class BST<K extends Comparable<K>, V> {
             node.right = delete(node.right, key);
         } else {
             if (node.left == null) {
+                size--;
                 return node.right;
             } else if (node.right == null) {
+                size--;
                 return node.left;
             } else {
                 Node minNode = findMin(node.right);
@@ -92,26 +98,28 @@ public class BST<K extends Comparable<K>, V> {
 
     private Node deleteMin(Node node) {
         if (node.left == null) {
+            size--;
             return node.right;
         }
         node.left = deleteMin(node.left);
         return node;
     }
 
-    public Iterable<K> iterator() {
-        List<K> keys = new ArrayList<>();
-        inorderTraversal(root, keys);
-        return keys;
+    public Iterable<Node> iterator() {
+        List<Node> nodes = new ArrayList<>();
+        inorderTraversal(root, nodes);
+        return nodes;
     }
 
-    private void inorderTraversal(Node node, List<K> keys) {
+    private void inorderTraversal(Node node, List<Node> nodes) {
         if (node == null) {
             return;
         }
-        inorderTraversal(node.left, keys);
-        keys.add(node.key);
-        inorderTraversal(node.right, keys);
+        inorderTraversal(node.left, nodes);
+        nodes.add(node);
+        inorderTraversal(node.right, nodes);
     }
+
     public int size() {
         return size;
     }
