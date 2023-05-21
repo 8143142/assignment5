@@ -3,6 +3,7 @@ import java.util.List;
 
 public class BST<K extends Comparable<K>, V> {
     private Node root;
+    private int size;
 
     private class Node {
         private K key;
@@ -110,5 +111,8 @@ public class BST<K extends Comparable<K>, V> {
         inorderTraversal(node.left, keys);
         keys.add(node.key);
         inorderTraversal(node.right, keys);
+    }
+    public int size() {
+        return size;
     }
 }
