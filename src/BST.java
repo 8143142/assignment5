@@ -4,10 +4,10 @@ import java.util.List;
 public class BST<K extends Comparable<K>, V> {
     private Node root;
     private int size;
-
-    private class Node {
-        private K key;
-        private V val;
+    // Node class representing a node in the BST
+    class Node {
+        K key;
+        V val;
         private Node left, right;
 
         public Node(K key, V val) {
@@ -15,11 +15,11 @@ public class BST<K extends Comparable<K>, V> {
             this.val = val;
         }
     }
-
+    // Inserts a key-value pair into the BST
     public void put(K key, V val) {
         root = put(root, key, val);
     }
-
+    // Recursive helper method for put()
     private Node put(Node node, K key, V val) {
         if (node == null) {
             size++;
@@ -37,11 +37,11 @@ public class BST<K extends Comparable<K>, V> {
 
         return node;
     }
-
+    // Retrieves the value associated with a given key from the BST
     public V get(K key) {
         return get(root, key);
     }
-
+    // Recursive helper method for get()
     private V get(Node node, K key) {
         if (node == null) {
             return null;
@@ -56,11 +56,11 @@ public class BST<K extends Comparable<K>, V> {
             return node.val;
         }
     }
-
+    // Deletes a key-value pair from the BST
     public void delete(K key) {
         root = delete(root, key);
     }
-
+    // Recursive helper method for delete()
     private Node delete(Node node, K key) {
         if (node == null) {
             return null;
@@ -88,14 +88,14 @@ public class BST<K extends Comparable<K>, V> {
 
         return node;
     }
-
+    // Finds the minimum node in a given subtree
     private Node findMin(Node node) {
         while (node.left != null) {
             node = node.left;
         }
         return node;
     }
-
+    // Deletes the minimum node from a given subtree
     private Node deleteMin(Node node) {
         if (node.left == null) {
             size--;
@@ -104,13 +104,13 @@ public class BST<K extends Comparable<K>, V> {
         node.left = deleteMin(node.left);
         return node;
     }
-
+    // Returns an iterable collection of nodes in the BST
     public Iterable<Node> iterator() {
         List<Node> nodes = new ArrayList<>();
         inorderTraversal(root, nodes);
         return nodes;
     }
-
+    // Performs an inorder traversal of the BST and populates the list of nodes
     private void inorderTraversal(Node node, List<Node> nodes) {
         if (node == null) {
             return;
@@ -119,7 +119,7 @@ public class BST<K extends Comparable<K>, V> {
         nodes.add(node);
         inorderTraversal(node.right, nodes);
     }
-
+    // Returns the size of the BST
     public int size() {
         return size;
     }
