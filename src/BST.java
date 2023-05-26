@@ -123,4 +123,23 @@ public class BST<K extends Comparable<K>, V> {
     public int size() {
         return size;
     }
+
+    public boolean contains(K key) {
+        return contains(root, key);
+    }
+
+    private boolean contains(Node root, K key) {
+        if (root == null) {
+            return false;
+        }
+        int cmp = key.compareTo(root.key);
+
+        if (cmp < 0) {
+            return contains(root.left, key);
+        } else if (cmp > 0) {
+            return contains(root.right, key);
+        }else{
+            return true;
+        }
+    }
 }
